@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pra você, mulher da minha vida 🥹 💗💗</title>
+
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: Arial;
+  background: linear-gradient(#ffd6e0, #fff);
+  text-align: center;
+}
+
+/* Gatinho */
+#player {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 50px;
+}
+
+/* Corações */
+.heart {
+  position: absolute;
+  font-size: 30px;
+  animation: cair linear;
+  cursor: pointer;
+}
+
+@keyframes cair {
+  from { transform: translateY(-50px); }
+  to { transform: translateY(100vh); }
+}
+
+/* Pontuação */
+#score {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  font-size: 20px;
+}
+
+/* Mensagem fofinha */
+#msg {
+  position: fixed;
+  top: 40px;
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+  color: #ff4d6d;
+}
+
+/* Final */
+#final {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff0f5;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+</style>
+</head>
+
+<body>
+
+<div id="score">❤️ 0</div>
+<div id="msg"></div>
+<div id="player">🐱</div>
+
+<div id="final">
+  <h1>parabéns meu amor, vc venceuuuuuuu💖</h1>
+  <p>Mas eu já tinha perdido...</p>
+  <p>Perdido completamente por você 🥺</p>
+  <h2>Eu te amo muito muito muito muito muito muito muito muito ❤️</h2>
+
+  <audio autoplay loop>
+    <source src="Waiting(MP3_160K).mp3" type="audio/mpeg">
+  </audio>
+</div>
+
+<script>
+let score = 0;
+const frases = [
+  "pega você aqui ó ❤️ 🥺",
+  "esse é pra você minha neném 💖",
+  "um coração = um beijinho rsrs",
+  "VOCÊ é simplesmente a melhor namorada de toda a história 💕",
+  "só mais um pouquinho neném 🥹💗"
+];
+
+function criarCoracao() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "❤️";
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (Math.random() * 2 + 2) + "s";
+
+  heart.onclick = () => {
+    score++;
+    document.getElementById("score").innerText = "❤️ " + score;
+
+    // mensagem fofa aleatória
+    document.getElementById("msg").innerText =
+      frases[Math.floor(Math.random() * frases.length)];
+
+    heart.remove();
+
+    if (score >= 20) {
+      finalizar();
+    }
+  };
+
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 5000);
+}
+
+setInterval(criarCoracao, 700);
+
+function finalizar() {
+  document.getElementById("final").style.display = "flex";
+}
+
+/* mover gatinho (toque ou mouse) */
+document.addEventListener("mousemove", e => {
+  document.getElementById("player").style.left = e.clientX + "px";
+});
+
+document.addEventListener("touchmove", e => {
+  document.getElementById("player").style.left =
+    e.touches[0].clientX + "px";
+});
+</script>
+
+</body>
+</html>
